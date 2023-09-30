@@ -47,6 +47,7 @@ CREATE TABLE audit.logged_actions (
 
     session_user_name text,
     hasura_user jsonb,
+    trace_context jsonb,
 
     action_tstamp_tx TIMESTAMP WITH TIME ZONE NOT NULL,
     action_tstamp_stm TIMESTAMP WITH TIME ZONE NOT NULL,
