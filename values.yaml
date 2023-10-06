@@ -353,6 +353,16 @@ ccd:
                 timeout => 60
             }
         }
+      04_kafka_output.conf: |
+        output {
+          kafka {
+            bootstrap_servers => "{{ .GCP.KAFKA_BOOTSRAP_SERVERS }}"
+            codec => json { charset => "UTF-8" }
+            topic_id => "ocm-{{ .Domain.Name }}-domain"
+          }
+        }
+    
+        
 
 xui-webapp:
   enabled: true
