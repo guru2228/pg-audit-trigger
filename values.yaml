@@ -254,7 +254,7 @@ ccd:
               codec => json {
                   charset => "UTF-8"
               }
-              topics                    => "k8s"
+              topics                    => "ocm-{{ .Domain.Name }}-domain"
               auto_offset_reset         => "latest"
               consumer_threads          => 3              
           }
