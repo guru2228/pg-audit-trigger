@@ -357,7 +357,14 @@ ccd:
         output {
           kafka {
             bootstrap_servers => "{{ .GCP.KAFKA_BOOTSRAP_SERVERS }}"
-            codec => json { charset => "UTF-8" }
+            security_protocol         => "SSL"
+            ssl_keystore_location     => "{{ .GCP.KAFKA_SSL_KEYSTORE_LOC }}"
+            ssl_keystore_password     => "{{ .GCP.KAFKA_SSL_KEYSTORE_PASSWORD }}"
+            ssl_truststore_location   => "{{ .GCP.KAFKA_SSL_TRUSTSTORE_LOC }}"
+            ssl_truststore_password   => "{{ .GCP.KAFKA_SSL_TRUSTSTORE_PASSWORD }}"
+            codec => json {
+                charset => "UTF-8"
+            }
             topic_id => "ocm-{{ .Domain.Name }}-domain"
           }
         }
