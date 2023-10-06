@@ -361,11 +361,11 @@ ccd:
       03_output.conf: |
         output {
             elasticsearch {
-                hosts => ["http://{{ .Release.Name }}-es-master:9200"]
+                hosts => ["http://{{ .Audit.ElasticSearch.Host.Name }}-es-master:9200"]
                 sniffing => false
-                index => "%{[index_id]}"
+                index => "logged_actions_{{ .Domain.Name }}_%{table_name}_%{yyyy}_%{MM}_%{dd}"
                 document_type => "_doc"
-                document_id => "%{id}"
+                document_id => "{{ .Domain.Name }}_%{table_name}_%{event_id}_%{action_tstamp_tx}"
                 timeout => 60
             }
         }
