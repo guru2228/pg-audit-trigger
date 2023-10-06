@@ -361,27 +361,29 @@ ccd:
       03_output.conf: |
         output {
             elasticsearch {
-                hosts => ["http://{{ .Audit.ElasticSearch.Host.Name }}-es-master:9200"]
-                sniffing => false
-                index => "logged_actions_{{ .Domain.Name }}_%{table_name}_%{yyyy}_%{MM}_%{dd}"
-                document_type => "_doc"
-                document_id => "{{ .Domain.Name }}_%{table_name}_%{event_id}_%{action_tstamp_tx}"
-                timeout => 60
+                hosts          => ["http://{{ .Audit.ElasticSearch.Host }}-es-master:9200"]
+                user           => "{{ .Audit.ElasticSearch.Username }}"
+                password       => "{{ .Audit.ElasticSearch.Password }}"
+                sniffing       => false
+                index          => "logged_actions_{{ .Domain.Name }}_%{table_name}_%{yyyy}_%{MM}_%{dd}"
+                document_type  => "_doc"
+                document_id    => "{{ .Domain.Name }}_%{table_name}_%{event_id}_%{action_tstamp_tx}"
+                timeout        => 60
             }
         }
       04_kafka_output.conf: |
         output {
           kafka {
-            bootstrap_servers => "{{ .GCP.KAFKA_BOOTSRAP_SERVERS }}"
+            bootstrap_servers         => "{{ .GCP.KAFKA_BOOTSRAP_SERVERS }}"
             security_protocol         => "SSL"
             ssl_keystore_location     => "{{ .GCP.KAFKA_SSL_KEYSTORE_LOC }}"
             ssl_keystore_password     => "{{ .GCP.KAFKA_SSL_KEYSTORE_PASSWORD }}"
             ssl_truststore_location   => "{{ .GCP.KAFKA_SSL_TRUSTSTORE_LOC }}"
             ssl_truststore_password   => "{{ .GCP.KAFKA_SSL_TRUSTSTORE_PASSWORD }}"
-            codec => json {
+            codec                     => json {
                 charset => "UTF-8"
             }
-            topic_id => "ocm-{{ .Domain.Name }}-domain"
+          topic_id                    => "ocm-{{ .Domain.Name }}-domain"
           }
         }
     
